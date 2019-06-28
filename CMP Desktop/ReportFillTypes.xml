@@ -1,0 +1,5 @@
+﻿<ReportFillTypes>
+  <FillType Name ="Acrobat (PDF)File" Value = "PDF"/>
+  <FillType Name ="Microsoft Excel" Value = "EXCEL"/>
+  <FillType Name ="CSV" Value = "EXPORT EXCEL"/>
+</ReportFillTypes>
