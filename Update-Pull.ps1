@@ -1,33 +1,3 @@
-<#
-.Synopsis
-Automate updating remote files to local machine
-
-.AUTHORS
-Nick Munday - GCGC SysAdmin
-Sawyer Peacock - OGELP SysAdmin
-
-.DESCRIPTION
-This script will check the remote share and move the Access Database files locally if the remote version is newer.
-
-.FIXES
-Version 1.1
-- Removed Archive functionality as was not needed
-
-Version 1.2
-- Nick's spelling is horrible
-- Re-wrote redundant code into functions
-
-#>
-##################### Configurable Variables #####################
-# Sets Local and Remote Folder Location
-$LocalFolder = "C:\CAS"
-$RemoteShare = "\\blackjack.gcgaming.com\departments\GCC\TSG\Staff\5.0 Common\OGELP\CAS2018\TIC"
-
-# Sets Local and Remote Files
-$Local_MDE = "$LocalFolder\Casino Acct.mde"
-$Local_ACCDE = "$LocalFolder\Casino Acct.accde"
-$Remote_MDE = "$RemoteShare\Casino Acct.mde"
-$Remote_ACCDE = "$RemoteShare\Casino Acct.accde"
 
 ##################### Utility Functions #####################
 function Check4Update([string]$localFile, [string]$remoteFile) {
@@ -46,7 +16,7 @@ function Check4Update([string]$localFile, [string]$remoteFile) {
                 return $true
             }
             else {
-                Write-Host "- Local File is newer than Remote File"
+                Write-Host "- Local File is newer or the same as the Remote File"
             }
         }
         else {
@@ -86,13 +56,3 @@ function UpdateFile([string]$localFile, [string]$remoteFile, [bool]$backup = $tr
     Copy-Item $remoteFile $localFile
 }
 
-##################### Main Code Goes down here #####################
-Write-Host "Script running at $(Get-Date)"
-
-if (Check4Update $Local_MDE $Remote_MDE) {
-    UpdateFile $Local_MDE $Remote_MDE
-}
-
-if (Check4Update $Local_ACCDE $Remote_ACCDE) {
-    UpdateFile $Local_ACCDE $Remote_ACCDE $false
-}
